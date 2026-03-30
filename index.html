@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="ko"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;🍎 모덩더를 잡아라 🍎&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body { margin: 0; overflow: hidden; background: #fff5f7; font-family: 'Pretendard', sans-serif; touch-action: none; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#game-container { position: relative; width: 100vw; height: 100vh; overflow: hidden; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#basket { position: absolute; bottom: 20px; width: 80px; height: 80px; transition: transform 0.1s; z-index: 10; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.item { position: absolute; width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#score { position: absolute; top: 20px; left: 20px; font-size: 24px; font-weight: bold; color: #ff4757; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#timer { position: absolute; top: 20px; right: 20px; font-size: 24px; font-weight: bold; color: #2f3542; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; display: none; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 100; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div id="game-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="score"&gt;Score: 0&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="timer"&gt;Time: 30&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;img id="basket" src="https://drive.google.com/thumbnail?authuser=0&amp;sz=w200&amp;id=바구니캐릭터ID" alt="바구니"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="msg"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2 id="final-score"&gt;게임 종료!&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button onclick="location.reload()" style="padding:10px 20px; cursor:pointer;"&gt;다시 하기&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const container = document.getElementById('game-container');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const basket = document.getElementById('basket');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const scoreDisplay = document.getElementById('score');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const timerDisplay = document.getElementById('timer');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const msg = document.getElementById('msg');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let score = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let timeLeft = 30;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let gameActive = true;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 떨어질 아이템 이미지 리스트 (마케터님의 사진 ID들로 교체!)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const items = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>'https://drive.google.com/thumbnail?authuser=0&amp;sz=w200&amp;id=아이템ID1',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>'https://drive.google.com/thumbnail?authuser=0&amp;sz=w200&amp;id=아이템ID2'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 바구니 이동 (마우스/터치)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>window.addEventListener('mousemove', (e) =&gt; { if(gameActive) basket.style.left = (e.clientX - 40) + 'px'; });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>window.addEventListener('touchmove', (e) =&gt; { if(gameActive) basket.style.left = (e.touches[0].clientX - 40) + 'px'; });</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 아이템 생성</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function createItem() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (!gameActive) return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const item = document.createElement('img');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>item.src = items[Math.floor(Math.random() * items.length)];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>item.classList.add('item');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>item.style.left = Math.random() * (window.innerWidth - 50) + 'px';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>item.style.top = '-50px';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>container.appendChild(item);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let fallInterval = setInterval(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!gameActive) { clearInterval(fallInterval); item.remove(); return; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let top = parseInt(item.style.top);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>item.style.top = (top + 5) + 'px';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// 충돌 감지 (캐치!)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bRect = basket.getBoundingClientRect();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const iRect = item.getBoundingClientRect();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (iRect.bottom &gt;= bRect.top &amp;&amp; iRect.left &lt; bRect.right &amp;&amp; iRect.right &gt; bRect.left) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>score++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scoreDisplay.innerText = "Score: " + score;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>clearInterval(fallInterval);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>item.remove();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (top &gt; window.innerHeight) { clearInterval(fallInterval); item.remove(); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}, 20);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let itemGenerator = setInterval(createItem, 800);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 타이머</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let countdown = setInterval(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>timeLeft--;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>timerDisplay.innerText = "Time: " + timeLeft;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (timeLeft &lt;= 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameActive = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>clearInterval(countdown);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>clearInterval(itemGenerator);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('final-score').innerText = "최종 점수: " + score + "점!";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>msg.style.display = 'block';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}, 1000);</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
